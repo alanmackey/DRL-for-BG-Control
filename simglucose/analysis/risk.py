@@ -15,3 +15,4 @@ def risk_index(BG, horizon):
         HBGI = np.nan_to_num(np.mean(rh))
         RI = LBGI + HBGI
     return (LBGI, HBGI, RI)
+

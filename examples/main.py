@@ -76,7 +76,7 @@ def main():
     # Use recurrent policies or not
     parser.add_argument("--save_model", action="store_true")
     # Model load file name, "" doesn't load, "default" uses file_name
-    parser.add_argument("--load_model", default="")
+    parser.add_argument("--load_model", default="TD3_simglucose-adolescent1-v0_0")
     # Don't train and just run the model
     parser.add_argument("--test", action="store_true")
     args = parser.parse_args()
@@ -142,7 +142,7 @@ def main():
     if args.load_model != "":
         policy_file = file_name \
             if args.load_model == "default" else args.load_model
-        policy.load(f"{policy_file}")
+        policy.load(f"./models/{policy_file}")
 
     if args.test:
         eval_policy(policy, args.env, args.seed, eval_episodes=10, test=True)
@@ -217,8 +217,11 @@ def main():
             evaluations.append(eval_policy(policy, env_name, seed))
 #            if evaluations[-1] > best_reward and args.save_model:
             if evaluations[-1] > best_reward:
-                    policy.save(f"./models/{file_name}")
-
+                policy.save(f"./models/{file_name}")
+                best_reward = evaluations[-1]
+                print(best_reward)
+            if best_reward > 0:
+                print('Made it')
             np.save(f"./results/{file_name}", evaluations)
 
 

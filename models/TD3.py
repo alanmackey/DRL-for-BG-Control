@@ -186,10 +186,12 @@ class TD3(object):
         # Get current Q estimates
         current_Q1, current_Q2 = self.critic(state, action, hidden, hidden)
 
+        #        critic_loss = F.SmoothL1Loss(current_Q1, target_Q) + \
         # Compute critic loss
         critic_loss = F.mse_loss(current_Q1, target_Q) + \
             F.mse_loss(current_Q2, target_Q)
 
+#        nn.SmoothL1Loss
         # Optimize the critic
         self.critic_optimizer.zero_grad()
         critic_loss.backward()

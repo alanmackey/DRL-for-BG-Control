@@ -28,7 +28,7 @@ class T1DSimEnv(gym.Env):
         '''
         seeds = self._seed()
         nbr_hours = 4
-        self.termination_penalty = 5
+        self.termination_penalty = 20
         self.state_hist = int((nbr_hours * 60) / 3)
         # have to hard code the patient_name, gym has some interesting
         # error when choosing the patient
@@ -90,8 +90,8 @@ class T1DSimEnv(gym.Env):
 
     @property
     def action_space(self):
-        ub = self.env.pump._params['max_basal']
-        return spaces.Box(low=0, high=ub, shape=(1,))
+#        ub = self.env.pump._params['max_basal']
+        return spaces.Box(low=0, high=1, shape=(1,))
 
 #    @property
 #    def observation_space(self):
@@ -103,3 +103,4 @@ class T1DSimEnv(gym.Env):
 #        num_channels = int(len(st)/self.state_hist)
 #        return spaces.Box(low=0, high=np.inf, shape=(num_channels, self.state_hist))
         return spaces.Box(low=0, high=np.inf, shape=(len(st),))
+
