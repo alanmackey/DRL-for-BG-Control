@@ -16,6 +16,8 @@ def eval_policy(policy, env_name, seed, eval_episodes=10, test=False):
     avg_reward = 0.
     env = gym.make(env_name)
     env.seed(seed + 100)
+    episode_steps = 0
+    max_episode_steps = 1440
 
     for _ in range(eval_episodes):
         if test:
@@ -29,6 +31,9 @@ def eval_policy(policy, env_name, seed, eval_episodes=10, test=False):
             # env.render(mode='human', close=False)
             state, reward, done, _ = env.step(action)
             avg_reward += reward
+            episode_steps = episode_steps+1
+            if episode_steps >= max_episode_steps:
+                done = True
 
     avg_reward /= eval_episodes
 
@@ -80,17 +85,17 @@ def main():
     # Don't train and just run the model
     parser.add_argument("--test", action="store_true")
     args = parser.parse_args()
+    max_episode_steps = 1440
+
+    env_name = "simglucose.envs:simglucose-v0"  # Name of a environment (set it to any Continous environment you want)
 
 
-    env_name = "simglucose-adolescent1-v0"  # Name of a environment (set it to any Continous environment you want)
-
-
-    register(
-        id=env_name,
-        entry_point='simglucose.envs:T1DSimEnv',
-        max_episode_steps=1440,
-        kwargs={'patient_name': 'adolescent#001'}
-    )
+#    register(
+#        id=env_name,
+#        entry_point='simglucose.envs:T1DSimEnv',
+#        max_episode_steps=1440,
+#        kwargs={'patient_name': 'adolescent#001'}
+#    )
 
 
     file_name = f"{args.policy}_{env_name}_{seed}"
@@ -105,7 +110,8 @@ def main():
     if not os.path.exists("./models"):
             os.makedirs("./models")
 
-    env = gym.make(env_name)
+
+    env = gym.make('simglucose.envs:simglucose-v0')
 
     # Set seeds
     env.seed(seed)
@@ -182,7 +188,7 @@ def main():
         next_state, reward, done, _ = env.step(action)
 
         done_bool = float(
-            done) if episode_timesteps < env._max_episode_steps else 0
+            done) if episode_timesteps < max_episode_steps else 0
 
         # Store data in replay buffer
         replay_buffer.add(

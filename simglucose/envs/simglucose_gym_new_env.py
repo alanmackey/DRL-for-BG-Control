@@ -43,7 +43,7 @@ class T1DSimEnv(gym.Env):
         self.env = _T1DSimEnv(patient, sensor, pump, scenario)
         self.reward_fun = reward_fun
 
-    def _step(self, action):
+    def step(self, action):
         # This gym only controls basal insulin
         if type(action) is np.ndarray:
             action = action.item()
@@ -61,7 +61,7 @@ class T1DSimEnv(gym.Env):
     def is_done(self):
         return self.env.BG_hist[-1] < 40 or self.env.BG_hist[-1] > 190
 
-    def _reset(self):
+    def reset(self):
         obs, _, _, _ = self.env.reset()
         return self.get_state()
 
@@ -74,7 +74,7 @@ class T1DSimEnv(gym.Env):
         seed3 = seeding.hash_seed(seed2 + 1) % 2**31
         return [seed1, seed2, seed3]
 
-    def _render(self, mode='human', close=False):
+    def render(self, mode='human', close=False):
         self.env.render(close=close)
 
     def get_state(self):
@@ -91,7 +91,8 @@ class T1DSimEnv(gym.Env):
     @property
     def action_space(self):
 #        ub = self.env.pump._params['max_basal']
-        return spaces.Box(low=0, high=1, shape=(1,))
+        return spaces.Box(low=0, high=0.1
+                          , shape=(1,))
 
 #    @property
 #    def observation_space(self):
