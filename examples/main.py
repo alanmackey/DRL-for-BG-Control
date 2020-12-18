@@ -11,13 +11,15 @@ from gym.envs.registration import register
 
 # Runs policy for X episodes and returns average reward
 # A fixed seed is used for the eval environment
-def eval_policy(policy, env_name, seed, eval_episodes=10, test=False):
+def eval_policy(policy, env_name, seed, eval_episodes=4, test=False):
     policy.eval_mode()
     avg_reward = 0.
+    eval_steps = 0
+    avg_steps = 0
     env = gym.make(env_name)
     env.seed(seed + 100)
     episode_steps = 0
-    max_episode_steps = 1440
+    max_episode_steps = 2880
 
     for _ in range(eval_episodes):
         if test:
@@ -34,46 +36,41 @@ def eval_policy(policy, env_name, seed, eval_episodes=10, test=False):
             episode_steps = episode_steps+1
             if episode_steps >= max_episode_steps:
                 done = True
+        eval_steps = eval_steps + episode_steps
 
     avg_reward /= eval_episodes
+    avg_steps = eval_steps / eval_episodes
 
     policy.train_mode()
     print("---------------------------------------")
-    print(f"Evaluation over {eval_episodes} episodes: {avg_reward:.3f}")
+    print(f"Evaluation over {eval_episodes} episodes: {avg_reward:.3f} Agerage steps {avg_steps}")
     print("---------------------------------------")
     return avg_reward
 
 
 def main():
     parser = argparse.ArgumentParser()
-    # Policy name (TD3, DDPG or OurDDPG)
     parser.add_argument("--policy", default="TD3")
-    # OpenAI gym environment name
-#    parser.add_argument("--env", default="HopperBulletEnv-v0")
-    # Sets Gym, PyTorch and Numpy seeds
+
     seed = 0
-#    parser.add_argument("--seed", default=0, type=int)
-    # Time steps initial random policy is used
     parser.add_argument("--start_timesteps", default=1e4, type=int)
     # How often (time steps) we evaluate
     parser.add_argument("--eval_freq", default=1e3, type=int)
     # Max time steps to run environment
     parser.add_argument("--max_timesteps", default=1e6, type=int)
     # Std of Gaussian exploration noise
-    parser.add_argument("--expl_noise", default=0.25)
+    parser.add_argument("--expl_noise", default=0.20)
     # Batch size for both actor and critic
     parser.add_argument("--batch_size", default=100, type=int)
     # Memory size
-    parser.add_argument("--memory_size", default=1e3, type=int)
+    parser.add_argument("--memory_size", default=1e4, type=int)
     # Learning rate
-#    parser.add_argument("--lr", default=3e-4, type=float)
-    parser.add_argument("--lr", default=3e-3, type=float)
+    parser.add_argument("--lr", default=3e-4, type=float)
     # Discount factor
     # Model width
-#    parser.add_argument("--hidden_size", default=128, type=int)
-    parser.add_argument("--hidden_size", default=64, type=int)
+    parser.add_argument("--hidden_size", default=128, type=int)
     # Noise added to target policy during critic update
-    parser.add_argument("--policy_noise", default=0.25)
+    parser.add_argument("--policy_noise", default=0.2)
     # Range to clip target policy noise
     parser.add_argument("--noise_clip", default=0.5)
     # Frequency of delayed policy updates
@@ -81,21 +78,22 @@ def main():
     # Use recurrent policies or not
     parser.add_argument("--save_model", action="store_true")
     # Model load file name, "" doesn't load, "default" uses file_name
-    parser.add_argument("--load_model", default="TD3_simglucose-adolescent1-v0_0")
+#    parser.add_argument("--load_model", default="TD3_simglucose-adolescent1-v0_0")
+    parser.add_argument("--load_model", default="")
     # Don't train and just run the model
     parser.add_argument("--test", action="store_true")
     args = parser.parse_args()
-    max_episode_steps = 1440
+    max_episode_steps = 2880
 
     env_name = "simglucose.envs:simglucose-v0"  # Name of a environment (set it to any Continous environment you want)
 
 
-#    register(
-#        id=env_name,
-#        entry_point='simglucose.envs:T1DSimEnv',
-#        max_episode_steps=1440,
-#        kwargs={'patient_name': 'adolescent#001'}
-#    )
+    register(
+        id=env_name,
+        entry_point='simglucose.envs:T1DSimEnv',
+        max_episode_steps=2880,
+        kwargs={'patient_name': 'adolescent#001', 'reward_fun': 'magni_reward'}
+    )
 
 
     file_name = f"{args.policy}_{env_name}_{seed}"
@@ -151,7 +149,7 @@ def main():
         policy.load(f"./models/{policy_file}")
 
     if args.test:
-        eval_policy(policy, args.env, args.seed, eval_episodes=10, test=True)
+        eval_policy(policy, args.env, args.seed, eval_episodes=4, test=True)
         return
 
     replay_buffer = memory.ReplayBuffer(
@@ -199,11 +197,8 @@ def main():
         episode_reward += reward
 
         # Train agent after collecting sufficient data
-        if (not policy.on_policy) and t >= args.start_timesteps:
+        if t >= args.start_timesteps:
             policy.train(replay_buffer, args.batch_size)
-        elif policy.on_policy and t % n_update == 0:
-            policy.train(replay_buffer)
-            replay_buffer.clear_memory()
 
         if done:
             # +1 to account for 0 indexing. +0 on ep_timesteps since it

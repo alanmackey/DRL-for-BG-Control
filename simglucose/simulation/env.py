@@ -1,6 +1,7 @@
 from simglucose.patient.t1dpatient import Action
-from simglucose.analysis.risk import risk_index
+from simglucose.analysis.risk import risk_index, magni_risk_index
 import pandas as pd
+import numpy as np
 from datetime import timedelta
 import logging
 from collections import namedtuple
@@ -119,6 +120,7 @@ class T1DSimEnv(object):
         BG = self.patient.observation.Gsub
         horizon = 1
         LBGI, HBGI, risk = risk_index([BG], horizon)
+        magni_risk = magni_risk_index([BG])
         CGM = self.sensor.measure(self.patient)
         self.time_hist = [self.scenario.start_time]
         self.BG_hist = [BG]
@@ -126,6 +128,7 @@ class T1DSimEnv(object):
         self.risk_hist = [risk]
         self.LBGI_hist = [LBGI]
         self.HBGI_hist = [HBGI]
+        self.magni_risk = [magni_risk]
         self.CHO_hist = []
         self.insulin_hist = []
 

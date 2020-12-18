@@ -4,12 +4,17 @@ from simglucose.sensor.cgm import CGMSensor
 from simglucose.actuator.pump import InsulinPump
 from simglucose.simulation.scenario_gen import RandomScenario
 from simglucose.controller.base import Action
+import pandas as pd
 import numpy as np
+import joblib
+import copy
 import pkg_resources
 import gym
 from gym import spaces
 from gym.utils import seeding
 from datetime import datetime
+from simglucose.analysis import reward_functions
+from simglucose.analysis.risk import magni_risk_index
 
 PATIENT_PARA_FILE = pkg_resources.resource_filename(
     'simglucose', 'params/vpatient_params.csv')
@@ -26,14 +31,19 @@ class T1DSimEnv(gym.Env):
         patient_name must be 'adolescent#001' to 'adolescent#010',
         or 'adult#001' to 'adult#010', or 'child#001' to 'child#010'
         '''
+        self.source_dir = 'C:/Users/macke/PycharmProjects/simglucose/simglucose/params'
+        if reward_fun == 'magni_reward':
+            reward_fun = reward_functions.magni_reward
         seeds = self._seed()
+        self.env = None
         nbr_hours = 4
-        self.termination_penalty = 20
+        self.termination_penalty = 2e4
         self.state_hist = int((nbr_hours * 60) / 3)
         # have to hard code the patient_name, gym has some interesting
         # error when choosing the patient
         if patient_name is None:
             patient_name = 'adolescent#001'
+        self.patient_name = patient_name
         patient = T1DPatient.withName(patient_name)
         sensor = CGMSensor.withName('Dexcom', seed=seeds[1])
         hour = self.np_random.randint(low=0.0, high=24.0)
@@ -41,12 +51,22 @@ class T1DSimEnv(gym.Env):
         scenario = RandomScenario(start_time=start_time, seed=seeds[2])
         pump = InsulinPump.withName('Insulet')
         self.env = _T1DSimEnv(patient, sensor, pump, scenario)
+        # TODO Set patient specific parmeters
+        self.set_history_values(patient_name)
         self.reward_fun = reward_fun
 
     def step(self, action):
         # This gym only controls basal insulin
+        # Universal Action Space
+        action_scale = 'basal'
+        basal_scaling = 43.2
+        action_bias = 0
         if type(action) is np.ndarray:
             action = action.item()
+        # 288 samples per day, bolus insulin should be 75% of insulin dose
+        # split over 4 meals with 5 minute sampling rate, max unscaled value is 1+action_bias
+        # https://care.diabetesjournals.org/content/34/5/1089
+        action = (action + action_bias) * ((self.ideal_basal * basal_scaling)/(1+action_bias))
         act = Action(basal=action, bolus=0)
         if self.reward_fun is None:
             _, reward, _, info =  self.env.step(act)
@@ -63,6 +83,7 @@ class T1DSimEnv(gym.Env):
 
     def reset(self):
         obs, _, _, _ = self.env.reset()
+        self._hist_init()
         return self.get_state()
 
     def _seed(self, seed=None):
@@ -74,7 +95,7 @@ class T1DSimEnv(gym.Env):
         seed3 = seeding.hash_seed(seed2 + 1) % 2**31
         return [seed1, seed2, seed3]
 
-    def render(self, mode='human', close=False):
+    def _render(self, mode='human', close=False):
         self.env.render(close=close)
 
     def get_state(self):
@@ -87,11 +108,43 @@ class T1DSimEnv(gym.Env):
         return_arr = [bg, insulin]
         return np.stack(return_arr).flatten()
 
+    def set_history_values(self, patient_name):
+        self.patient_name = patient_name
+        self.patient_para_file = '{}/vpatient_params.csv'.format(self.source_dir)
+        self.control_quest = '{}/Quest2.csv'.format(self.source_dir)
+        vpatient_params = pd.read_csv(self.patient_para_file)
+        quest = pd.read_csv(self.control_quest)
+        self.kind = self.patient_name.split('#')[0]
+        self.bw = vpatient_params.query('Name=="{}"'.format(self.patient_name))['BW'].item()
+        self.u2ss = vpatient_params.query('Name=="{}"'.format(self.patient_name))['u2ss'].item()
+        self.ideal_basal = self.bw * self.u2ss / 6000.
+        self.CR = quest.query('Name=="{}"'.format(patient_name)).CR.item()
+        self.CF = quest.query('Name=="{}"'.format(patient_name)).CF.item()
+        self.env_init_dict = joblib.load("{}/{}_data.pkl".format(self.source_dir, self.patient_name))
+        self.env_init_dict['magni_risk_hist'] = []
+        for bg in self.env_init_dict['bg_hist']:
+            self.env_init_dict['magni_risk_hist'].append(magni_risk_index([bg]))
+        self._hist_init()
+
+    def _hist_init(self):
+        self.rolling = []
+        env_init_dict = copy.deepcopy(self.env_init_dict)
+        self.env.patient._state = env_init_dict['state']
+        self.env.patient._t = env_init_dict['time']
+        self.env.time_hist = env_init_dict['time_hist']
+        self.env.BG_hist = env_init_dict['bg_hist']
+        self.env.CGM_hist = env_init_dict['cgm_hist']
+        self.env.risk_hist = env_init_dict['risk_hist']
+        self.env.LBGI_hist = env_init_dict['lbgi_hist']
+        self.env.HBGI_hist = env_init_dict['hbgi_hist']
+        self.env.CHO_hist = env_init_dict['cho_hist']
+        self.env.insulin_hist = env_init_dict['insulin_hist']
+        self.env.magni_risk_hist = env_init_dict['magni_risk_hist']
 
     @property
     def action_space(self):
 #        ub = self.env.pump._params['max_basal']
-        return spaces.Box(low=0, high=0.1
+        return spaces.Box(low=0, high=1.0
                           , shape=(1,))
 
 #    @property
@@ -104,4 +157,5 @@ class T1DSimEnv(gym.Env):
 #        num_channels = int(len(st)/self.state_hist)
 #        return spaces.Box(low=0, high=np.inf, shape=(num_channels, self.state_hist))
         return spaces.Box(low=0, high=np.inf, shape=(len(st),))
+
 
