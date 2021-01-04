@@ -32,59 +32,9 @@
     <select />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="b7cb052d-514f-4dec-931a-fe4d76f07fdd" name="Default Changelist" comment="202012-17 Added action scaling, Changed risk and reward functions&#10;Changed batch size to 100">
-      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
+    <list default="true" id="b7cb052d-514f-4dec-931a-fe4d76f07fdd" name="Default Changelist" comment="2021-01-4  Complete as from win laptop with final hyperparameters">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/examples/main.py" beforeDir="false" afterPath="$PROJECT_DIR$/examples/main.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/examples/models/TD3_simglucose-adolescent1-v0_0_actor" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/examples/models/TD3_simglucose-adolescent1-v0_0_actor_optimizer" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/examples/models/TD3_simglucose-adolescent1-v0_0_critic" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/examples/models/TD3_simglucose-adolescent1-v0_0_critic_optimizer" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/examples/models/TD3_simglucose.envs" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/examples/results/2017-12-31_17-46-32/BG_trace.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/examples/results/2017-12-31_17-46-32/CVGA.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/examples/results/2017-12-31_17-46-32/CVGA_stats.csv" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/examples/results/2017-12-31_17-46-32/adolescent#001.csv" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/examples/results/2017-12-31_17-46-32/adolescent#002.csv" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/examples/results/2017-12-31_17-46-32/adolescent#003.csv" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/examples/results/2017-12-31_17-46-32/adolescent#004.csv" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/examples/results/2017-12-31_17-46-32/adolescent#005.csv" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/examples/results/2017-12-31_17-46-32/adolescent#006.csv" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/examples/results/2017-12-31_17-46-32/adolescent#007.csv" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/examples/results/2017-12-31_17-46-32/adolescent#008.csv" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/examples/results/2017-12-31_17-46-32/adolescent#009.csv" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/examples/results/2017-12-31_17-46-32/adolescent#010.csv" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/examples/results/2017-12-31_17-46-32/adult#001.csv" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/examples/results/2017-12-31_17-46-32/adult#002.csv" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/examples/results/2017-12-31_17-46-32/adult#003.csv" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/examples/results/2017-12-31_17-46-32/adult#004.csv" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/examples/results/2017-12-31_17-46-32/adult#005.csv" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/examples/results/2017-12-31_17-46-32/adult#006.csv" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/examples/results/2017-12-31_17-46-32/adult#007.csv" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/examples/results/2017-12-31_17-46-32/adult#008.csv" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/examples/results/2017-12-31_17-46-32/adult#009.csv" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/examples/results/2017-12-31_17-46-32/adult#010.csv" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/examples/results/2017-12-31_17-46-32/child#001.csv" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/examples/results/2017-12-31_17-46-32/child#002.csv" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/examples/results/2017-12-31_17-46-32/child#003.csv" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/examples/results/2017-12-31_17-46-32/child#004.csv" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/examples/results/2017-12-31_17-46-32/child#005.csv" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/examples/results/2017-12-31_17-46-32/child#006.csv" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/examples/results/2017-12-31_17-46-32/child#007.csv" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/examples/results/2017-12-31_17-46-32/child#008.csv" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/examples/results/2017-12-31_17-46-32/child#009.csv" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/examples/results/2017-12-31_17-46-32/child#010.csv" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/examples/results/2017-12-31_17-46-32/performance_stats.csv" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/examples/results/2017-12-31_17-46-32/risk_stats.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/examples/results/2017-12-31_17-46-32/risk_trace.csv" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/examples/results/2017-12-31_17-46-32/zone_stats.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/examples/results/TD3_simglucose-adolescent1-v0_0.npy" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/examples/results/TD3_simglucose.envs" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/models/TD3.py" beforeDir="false" afterPath="$PROJECT_DIR$/models/TD3.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/simglucose/analysis/reward_functions.py" beforeDir="false" afterPath="$PROJECT_DIR$/simglucose/analysis/reward_functions.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/simglucose/envs/simglucose_gym_new_env.py" beforeDir="false" afterPath="$PROJECT_DIR$/simglucose/envs/simglucose_gym_new_env.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/simglucose/simulation/env.py" beforeDir="false" afterPath="$PROJECT_DIR$/simglucose/simulation/env.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/simglucose/simulation/scenario_gen.py" beforeDir="false" afterPath="$PROJECT_DIR$/simglucose/simulation/scenario_gen.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -263,7 +213,14 @@
       <option name="project" value="LOCAL" />
       <updated>1608288060955</updated>
     </task>
-    <option name="localTasksCounter" value="4" />
+    <task id="LOCAL-00004" summary="2021-01-4  Complete as from win laptop with final hyperparameters">
+      <created>1609786515995</created>
+      <option name="number" value="00004" />
+      <option name="presentableId" value="LOCAL-00004" />
+      <option name="project" value="LOCAL" />
+      <updated>1609786515995</updated>
+    </task>
+    <option name="localTasksCounter" value="5" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
@@ -282,7 +239,8 @@
     <MESSAGE value="Fixed register issue" />
     <MESSAGE value="Changes from RL4BG" />
     <MESSAGE value="202012-17 Added action scaling, Changed risk and reward functions&#10;Changed batch size to 100" />
-    <option name="LAST_COMMIT_MESSAGE" value="202012-17 Added action scaling, Changed risk and reward functions&#10;Changed batch size to 100" />
+    <MESSAGE value="2021-01-4  Complete as from win laptop with final hyperparameters" />
+    <option name="LAST_COMMIT_MESSAGE" value="2021-01-4  Complete as from win laptop with final hyperparameters" />
   </component>
   <component name="WindowStateProjectService">
     <state x="-1812" y="-110" key="#com.intellij.fileTypes.FileTypeChooser" timestamp="1608048569571">
@@ -376,11 +334,11 @@
       <screen x="0" y="0" width="1536" height="824" />
     </state>
     <state x="93" y="93" width="1350" height="638" key="ShowDiffWithBranchDialog/0.0.1536.824@0.0.1536.824" timestamp="1605185378177" />
-    <state x="-2159" y="-205" key="Vcs.Push.Dialog.v2" timestamp="1608633279389">
-      <screen x="-2560" y="-367" width="1707" height="920" />
+    <state x="361" y="145" key="Vcs.Push.Dialog.v2" timestamp="1609786524033">
+      <screen x="0" y="0" width="1536" height="824" />
     </state>
     <state x="-2159" y="-205" key="Vcs.Push.Dialog.v2/0.0.1536.824/1920.-173.2560.1040/-2560.-367.1707.920@-2560.-367.1707.920" timestamp="1608633279389" />
-    <state x="361" y="145" key="Vcs.Push.Dialog.v2/0.0.1536.824@0.0.1536.824" timestamp="1605001678581" />
+    <state x="361" y="145" key="Vcs.Push.Dialog.v2/0.0.1536.824@0.0.1536.824" timestamp="1609786524033" />
     <state width="862" height="468" key="XDebugger.FullValuePopup" timestamp="1608747731636">
       <screen x="-2560" y="-367" width="1707" height="920" />
     </state>
@@ -479,7 +437,7 @@
         </line-breakpoint>
         <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
           <url>file://$PROJECT_DIR$/examples/main.py</url>
-          <line>66</line>
+          <line>67</line>
           <option name="timeStamp" value="300" />
         </line-breakpoint>
         <line-breakpoint enabled="true" suspend="THREAD" type="python-line">

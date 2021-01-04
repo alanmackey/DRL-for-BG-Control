@@ -16,7 +16,7 @@ from IPython.display import display
 
 # Runs policy for X episodes and returns average reward
 # A fixed seed is used for the eval environment
-def eval_policy(policy, env_name, seed, eval_episodes=1, test=True, episode_num=0):
+def eval_policy(policy, env_name, seed, eval_episodes=2, test=True, episode_num=0):
 #    policy.eval_mode()
     avg_reward = 0.
     eval_steps = 0
@@ -25,11 +25,11 @@ def eval_policy(policy, env_name, seed, eval_episodes=1, test=True, episode_num=
     env.seed(seed + 100)
     episode_steps = 0
     max_episode_steps = 480
-    bg_act = []
+
 
     for _ in range(eval_episodes):
-#        if test:
-#            env.render(mode='human', close=False)
+        if test:
+            env.render(mode='human', close=False)
         state, done = env.reset(), False
         hidden = None
         while not done:
@@ -42,6 +42,7 @@ def eval_policy(policy, env_name, seed, eval_episodes=1, test=True, episode_num=
             episode_steps = episode_steps+1
             if episode_steps >= max_episode_steps:
                 done = True
+#            Used for debugging
 #            bg_act.append([state[59], action, reward, done])
         eval_steps = eval_steps + episode_steps
 #    print(bg_act)
@@ -66,7 +67,6 @@ def plot(rewards, steps, episode):
 def main():
     parser = argparse.ArgumentParser()
     parser.add_argument("--policy", default="TD3")
-
     seed = 0
     parser.add_argument("--start_timesteps", default=5e3, type=int)
     # How often (time steps) we evaluate
@@ -82,6 +82,7 @@ def main():
     # Learning rate
     parser.add_argument("--lr", default=3e-2, type=float)
     # Discount factor
+    # Now set in kwargs
     # Model width
     parser.add_argument("--hidden_size", default=300, type=int)
     # Noise added to target policy during critic update
@@ -103,7 +104,6 @@ def main():
 
     env_name = "simglucose.envs:simglucose-v0"  # Name of a environment (set it to any Continous environment you want)
 
-
     register(
         id=env_name,
         entry_point='simglucose.envs:T1DSimEnv',
@@ -123,6 +123,7 @@ def main():
     if not os.path.exists("./npy_results"):
             os.makedirs("./npy_results")
 
+#   Added directory for rendered figures
     if not os.path.exists("./figures"):
             os.makedirs("./figures")
 
@@ -186,8 +187,9 @@ def main():
     evaluations.append(eval_rew)
 
 #    evaluations = [eval_policy(policy, env_name, seed)]
+    # For tracking reward during training
     best_reward = 0
- #   best_reward = evaluations[-1]
+#   best_reward = evaluations[-1]
 
     state, done = env.reset(), False
     episode_reward = 0
@@ -199,7 +201,7 @@ def main():
     for t in range(1, int(args.max_timesteps)):
 
         episode_timesteps += 1
-        bg_act = []
+#        bg_act = []
         if episode_num % 10 == 0:
             env.render(mode='human', close=False)
 
