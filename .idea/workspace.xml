@@ -32,12 +32,59 @@
     <select />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="b7cb052d-514f-4dec-931a-fe4d76f07fdd" name="Default Changelist" comment="Changes from RL4BG">
-      <change afterPath="$PROJECT_DIR$/simglucose/analysis/reward_functions.py" afterDir="false" />
+    <list default="true" id="b7cb052d-514f-4dec-931a-fe4d76f07fdd" name="Default Changelist" comment="202012-17 Added action scaling, Changed risk and reward functions&#10;Changed batch size to 100">
+      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/examples/main.py" beforeDir="false" afterPath="$PROJECT_DIR$/examples/main.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/simglucose/analysis/risk.py" beforeDir="false" afterPath="$PROJECT_DIR$/simglucose/analysis/risk.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/examples/models/TD3_simglucose-adolescent1-v0_0_actor" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/examples/models/TD3_simglucose-adolescent1-v0_0_actor_optimizer" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/examples/models/TD3_simglucose-adolescent1-v0_0_critic" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/examples/models/TD3_simglucose-adolescent1-v0_0_critic_optimizer" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/examples/models/TD3_simglucose.envs" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/examples/results/2017-12-31_17-46-32/BG_trace.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/examples/results/2017-12-31_17-46-32/CVGA.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/examples/results/2017-12-31_17-46-32/CVGA_stats.csv" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/examples/results/2017-12-31_17-46-32/adolescent#001.csv" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/examples/results/2017-12-31_17-46-32/adolescent#002.csv" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/examples/results/2017-12-31_17-46-32/adolescent#003.csv" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/examples/results/2017-12-31_17-46-32/adolescent#004.csv" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/examples/results/2017-12-31_17-46-32/adolescent#005.csv" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/examples/results/2017-12-31_17-46-32/adolescent#006.csv" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/examples/results/2017-12-31_17-46-32/adolescent#007.csv" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/examples/results/2017-12-31_17-46-32/adolescent#008.csv" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/examples/results/2017-12-31_17-46-32/adolescent#009.csv" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/examples/results/2017-12-31_17-46-32/adolescent#010.csv" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/examples/results/2017-12-31_17-46-32/adult#001.csv" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/examples/results/2017-12-31_17-46-32/adult#002.csv" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/examples/results/2017-12-31_17-46-32/adult#003.csv" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/examples/results/2017-12-31_17-46-32/adult#004.csv" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/examples/results/2017-12-31_17-46-32/adult#005.csv" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/examples/results/2017-12-31_17-46-32/adult#006.csv" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/examples/results/2017-12-31_17-46-32/adult#007.csv" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/examples/results/2017-12-31_17-46-32/adult#008.csv" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/examples/results/2017-12-31_17-46-32/adult#009.csv" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/examples/results/2017-12-31_17-46-32/adult#010.csv" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/examples/results/2017-12-31_17-46-32/child#001.csv" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/examples/results/2017-12-31_17-46-32/child#002.csv" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/examples/results/2017-12-31_17-46-32/child#003.csv" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/examples/results/2017-12-31_17-46-32/child#004.csv" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/examples/results/2017-12-31_17-46-32/child#005.csv" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/examples/results/2017-12-31_17-46-32/child#006.csv" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/examples/results/2017-12-31_17-46-32/child#007.csv" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/examples/results/2017-12-31_17-46-32/child#008.csv" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/examples/results/2017-12-31_17-46-32/child#009.csv" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/examples/results/2017-12-31_17-46-32/child#010.csv" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/examples/results/2017-12-31_17-46-32/performance_stats.csv" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/examples/results/2017-12-31_17-46-32/risk_stats.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/examples/results/2017-12-31_17-46-32/risk_trace.csv" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/examples/results/2017-12-31_17-46-32/zone_stats.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/examples/results/TD3_simglucose-adolescent1-v0_0.npy" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/examples/results/TD3_simglucose.envs" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/models/TD3.py" beforeDir="false" afterPath="$PROJECT_DIR$/models/TD3.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/simglucose/analysis/reward_functions.py" beforeDir="false" afterPath="$PROJECT_DIR$/simglucose/analysis/reward_functions.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/simglucose/envs/simglucose_gym_new_env.py" beforeDir="false" afterPath="$PROJECT_DIR$/simglucose/envs/simglucose_gym_new_env.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/simglucose/simulation/env.py" beforeDir="false" afterPath="$PROJECT_DIR$/simglucose/simulation/env.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/simglucose/simulation/scenario_gen.py" beforeDir="false" afterPath="$PROJECT_DIR$/simglucose/simulation/scenario_gen.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -54,7 +101,7 @@
   <component name="Git.Settings">
     <option name="RECENT_BRANCH_BY_REPOSITORY">
       <map>
-        <entry key="$PROJECT_DIR$" value="short_obs" />
+        <entry key="$PROJECT_DIR$" value="simg_drrl_revert" />
       </map>
     </option>
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
@@ -67,11 +114,11 @@
   <component name="PropertiesComponent">
     <property name="ASKED_SHARE_PROJECT_CONFIGURATION_FILES" value="true" />
     <property name="RunOnceActivity.OpenProjectViewOnStart" value="true" />
-    <property name="last_opened_file_path" value="$PROJECT_DIR$" />
+    <property name="last_opened_file_path" value="D:/DRL 2.0/Deep Reinforcement Learning 2.0/Codes/TD3_Half_Humanoid.ipynb" />
     <property name="settings.editor.selected.configurable" value="com.jetbrains.python.configuration.PyActiveSdkModuleConfigurable" />
   </component>
   <component name="RunManager" selected="Python.main">
-    <configuration name="advanced_tutorial" type="PythonConfigurationType" factoryName="Python" temporary="true" nameIsGenerated="true">
+    <configuration name="ars" type="PythonConfigurationType" factoryName="Python" temporary="true" nameIsGenerated="true">
       <module name="simglucose" />
       <option name="INTERPRETER_OPTIONS" value="" />
       <option name="PARENT_ENVS" value="true" />
@@ -83,7 +130,7 @@
       <option name="IS_MODULE_SDK" value="true" />
       <option name="ADD_CONTENT_ROOTS" value="true" />
       <option name="ADD_SOURCE_ROOTS" value="true" />
-      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/examples/advanced_tutorial.py" />
+      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/examples/ars.py" />
       <option name="PARAMETERS" value="" />
       <option name="SHOW_COMMAND_LINE" value="false" />
       <option name="EMULATE_TERMINAL" value="false" />
@@ -105,27 +152,6 @@
       <option name="ADD_CONTENT_ROOTS" value="true" />
       <option name="ADD_SOURCE_ROOTS" value="true" />
       <option name="SCRIPT_NAME" value="$PROJECT_DIR$/examples/main.py" />
-      <option name="PARAMETERS" value="" />
-      <option name="SHOW_COMMAND_LINE" value="false" />
-      <option name="EMULATE_TERMINAL" value="false" />
-      <option name="MODULE_MODE" value="false" />
-      <option name="REDIRECT_INPUT" value="false" />
-      <option name="INPUT_FILE" value="" />
-      <method v="2" />
-    </configuration>
-    <configuration name="sac_v2" type="PythonConfigurationType" factoryName="Python" temporary="true" nameIsGenerated="true">
-      <module name="simglucose" />
-      <option name="INTERPRETER_OPTIONS" value="" />
-      <option name="PARENT_ENVS" value="true" />
-      <envs>
-        <env name="PYTHONUNBUFFERED" value="1" />
-      </envs>
-      <option name="SDK_HOME" value="" />
-      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$/examples" />
-      <option name="IS_MODULE_SDK" value="true" />
-      <option name="ADD_CONTENT_ROOTS" value="true" />
-      <option name="ADD_SOURCE_ROOTS" value="true" />
-      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/examples/sac_v2.py" />
       <option name="PARAMETERS" value="" />
       <option name="SHOW_COMMAND_LINE" value="false" />
       <option name="EMULATE_TERMINAL" value="false" />
@@ -176,13 +202,34 @@
       <option name="INPUT_FILE" value="" />
       <method v="2" />
     </configuration>
+    <configuration name="td3_org" type="PythonConfigurationType" factoryName="Python" temporary="true" nameIsGenerated="true">
+      <module name="simglucose" />
+      <option name="INTERPRETER_OPTIONS" value="" />
+      <option name="PARENT_ENVS" value="true" />
+      <envs>
+        <env name="PYTHONUNBUFFERED" value="1" />
+      </envs>
+      <option name="SDK_HOME" value="" />
+      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$/examples" />
+      <option name="IS_MODULE_SDK" value="true" />
+      <option name="ADD_CONTENT_ROOTS" value="true" />
+      <option name="ADD_SOURCE_ROOTS" value="true" />
+      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/examples/td3_org.py" />
+      <option name="PARAMETERS" value="" />
+      <option name="SHOW_COMMAND_LINE" value="false" />
+      <option name="EMULATE_TERMINAL" value="false" />
+      <option name="MODULE_MODE" value="false" />
+      <option name="REDIRECT_INPUT" value="false" />
+      <option name="INPUT_FILE" value="" />
+      <method v="2" />
+    </configuration>
     <recent_temporary>
       <list>
         <item itemvalue="Python.main" />
-        <item itemvalue="Python.td3_lstm" />
+        <item itemvalue="Python.ars" />
+        <item itemvalue="Python.td3_org" />
         <item itemvalue="Python.sac_v2_lstm" />
-        <item itemvalue="Python.advanced_tutorial" />
-        <item itemvalue="Python.sac_v2" />
+        <item itemvalue="Python.td3_lstm" />
       </list>
     </recent_temporary>
   </component>
@@ -209,7 +256,14 @@
       <option name="project" value="LOCAL" />
       <updated>1608208476683</updated>
     </task>
-    <option name="localTasksCounter" value="3" />
+    <task id="LOCAL-00003" summary="202012-17 Added action scaling, Changed risk and reward functions&#10;Changed batch size to 100">
+      <created>1608288060955</created>
+      <option name="number" value="00003" />
+      <option name="presentableId" value="LOCAL-00003" />
+      <option name="project" value="LOCAL" />
+      <updated>1608288060955</updated>
+    </task>
+    <option name="localTasksCounter" value="4" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
@@ -227,71 +281,92 @@
   <component name="VcsManagerConfiguration">
     <MESSAGE value="Fixed register issue" />
     <MESSAGE value="Changes from RL4BG" />
-    <option name="LAST_COMMIT_MESSAGE" value="Changes from RL4BG" />
+    <MESSAGE value="202012-17 Added action scaling, Changed risk and reward functions&#10;Changed batch size to 100" />
+    <option name="LAST_COMMIT_MESSAGE" value="202012-17 Added action scaling, Changed risk and reward functions&#10;Changed batch size to 100" />
   </component>
   <component name="WindowStateProjectService">
     <state x="-1812" y="-110" key="#com.intellij.fileTypes.FileTypeChooser" timestamp="1608048569571">
       <screen x="-2560" y="-367" width="1707" height="920" />
     </state>
     <state x="-1812" y="-110" key="#com.intellij.fileTypes.FileTypeChooser/0.0.1536.824/1920.-173.2560.1040/-2560.-367.1707.920@-2560.-367.1707.920" timestamp="1608048569571" />
+    <state x="-2302" y="-154" key="#xdebugger.XInspectDialog" timestamp="1608721284661">
+      <screen x="-2560" y="-367" width="1707" height="920" />
+    </state>
+    <state x="-2302" y="-154" key="#xdebugger.XInspectDialog/0.0.1536.824/1920.-173.2560.1040/-2560.-367.1707.920@-2560.-367.1707.920" timestamp="1608721284661" />
     <state x="524" y="115" key="#xdebugger.evaluate" timestamp="1607693270811">
       <screen x="0" y="0" width="1536" height="824" />
     </state>
     <state x="524" y="115" key="#xdebugger.evaluate/0.0.1536.824@0.0.1536.824" timestamp="1607693270811" />
-    <state width="1431" height="521" key="DebuggerActiveHint" timestamp="1608287610422">
-      <screen x="-2560" y="-367" width="1707" height="920" />
+    <state width="1287" height="466" key="DebuggerActiveHint" timestamp="1609159213784">
+      <screen x="0" y="0" width="1536" height="824" />
     </state>
-    <state width="1431" height="521" key="DebuggerActiveHint/0.0.1536.824/1920.-173.2560.1040/-2560.-367.1707.920@-2560.-367.1707.920" timestamp="1608287610422" />
-    <state width="1287" height="466" key="DebuggerActiveHint/0.0.1536.824@0.0.1536.824" timestamp="1608257376603" />
+    <state width="1550" height="521" key="DebuggerActiveHint/0.0.1536.824/1920.-173.2560.1040/-2560.-367.1707.920@-2560.-367.1707.920" timestamp="1608747930214" />
+    <state width="1287" height="466" key="DebuggerActiveHint/0.0.1536.824@0.0.1536.824" timestamp="1609159213784" />
     <state x="93" y="93" width="1350" height="638" key="DiffContextDialog" timestamp="1607693525704">
       <screen x="0" y="0" width="1536" height="824" />
     </state>
     <state x="93" y="93" width="1350" height="638" key="DiffContextDialog/0.0.1536.824@0.0.1536.824" timestamp="1607693525704" />
-    <state x="-1950" y="-196" key="FileChooserDialogImpl" timestamp="1608214544056">
+    <state x="-1950" y="-196" key="FileChooserDialogImpl" timestamp="1608304662793">
       <screen x="-2560" y="-367" width="1707" height="920" />
     </state>
-    <state x="-1950" y="-196" key="FileChooserDialogImpl/0.0.1536.824/1920.-173.2560.1040/-2560.-367.1707.920@-2560.-367.1707.920" timestamp="1608214544056" />
+    <state x="-1950" y="-196" key="FileChooserDialogImpl/0.0.1536.824/1920.-173.2560.1040/-2560.-367.1707.920@-2560.-367.1707.920" timestamp="1608304662793" />
     <state x="549" y="153" key="FileChooserDialogImpl/0.0.1536.824@0.0.1536.824" timestamp="1607647354360" />
-    <state width="1685" height="336" key="GridCell.Tab.0.bottom" timestamp="1608287807298">
-      <screen x="-2560" y="-367" width="1707" height="920" />
+    <state width="1515" height="277" key="GridCell.Tab.-1.bottom" timestamp="1608413627704">
+      <screen x="0" y="0" width="1536" height="824" />
     </state>
-    <state width="1685" height="336" key="GridCell.Tab.0.bottom/0.0.1536.824/1920.-173.2560.1040/-2560.-367.1707.920@-2560.-367.1707.920" timestamp="1608287807298" />
-    <state width="1515" height="336" key="GridCell.Tab.0.bottom/0.0.1536.824@0.0.1536.824" timestamp="1608251260862" />
-    <state width="1685" height="336" key="GridCell.Tab.0.center" timestamp="1608287807298">
-      <screen x="-2560" y="-367" width="1707" height="920" />
+    <state width="1515" height="277" key="GridCell.Tab.-1.bottom/0.0.1536.824@0.0.1536.824" timestamp="1608413627704" />
+    <state width="1515" height="277" key="GridCell.Tab.-1.center" timestamp="1608413627703">
+      <screen x="0" y="0" width="1536" height="824" />
     </state>
-    <state width="1685" height="336" key="GridCell.Tab.0.center/0.0.1536.824/1920.-173.2560.1040/-2560.-367.1707.920@-2560.-367.1707.920" timestamp="1608287807298" />
-    <state width="1515" height="336" key="GridCell.Tab.0.center/0.0.1536.824@0.0.1536.824" timestamp="1608251260862" />
-    <state width="1685" height="336" key="GridCell.Tab.0.left" timestamp="1608287807298">
-      <screen x="-2560" y="-367" width="1707" height="920" />
+    <state width="1515" height="277" key="GridCell.Tab.-1.center/0.0.1536.824@0.0.1536.824" timestamp="1608413627703" />
+    <state width="1515" height="277" key="GridCell.Tab.-1.left" timestamp="1608413627703">
+      <screen x="0" y="0" width="1536" height="824" />
     </state>
-    <state width="1685" height="336" key="GridCell.Tab.0.left/0.0.1536.824/1920.-173.2560.1040/-2560.-367.1707.920@-2560.-367.1707.920" timestamp="1608287807298" />
-    <state width="1515" height="336" key="GridCell.Tab.0.left/0.0.1536.824@0.0.1536.824" timestamp="1608251260862" />
-    <state width="1685" height="336" key="GridCell.Tab.0.right" timestamp="1608287807298">
-      <screen x="-2560" y="-367" width="1707" height="920" />
+    <state width="1515" height="277" key="GridCell.Tab.-1.left/0.0.1536.824@0.0.1536.824" timestamp="1608413627703" />
+    <state width="1515" height="277" key="GridCell.Tab.-1.right" timestamp="1608413627704">
+      <screen x="0" y="0" width="1536" height="824" />
     </state>
-    <state width="1685" height="336" key="GridCell.Tab.0.right/0.0.1536.824/1920.-173.2560.1040/-2560.-367.1707.920@-2560.-367.1707.920" timestamp="1608287807298" />
-    <state width="1515" height="336" key="GridCell.Tab.0.right/0.0.1536.824@0.0.1536.824" timestamp="1608251260862" />
-    <state width="1685" height="336" key="GridCell.Tab.1.bottom" timestamp="1608287811288">
-      <screen x="-2560" y="-367" width="1707" height="920" />
+    <state width="1515" height="277" key="GridCell.Tab.-1.right/0.0.1536.824@0.0.1536.824" timestamp="1608413627704" />
+    <state width="1515" height="295" key="GridCell.Tab.0.bottom" timestamp="1609712650550">
+      <screen x="0" y="0" width="1536" height="824" />
     </state>
-    <state width="1685" height="336" key="GridCell.Tab.1.bottom/0.0.1536.824/1920.-173.2560.1040/-2560.-367.1707.920@-2560.-367.1707.920" timestamp="1608287811288" />
-    <state width="1515" height="136" key="GridCell.Tab.1.bottom/0.0.1536.824@0.0.1536.824" timestamp="1608246166000" />
-    <state width="1685" height="336" key="GridCell.Tab.1.center" timestamp="1608287811288">
-      <screen x="-2560" y="-367" width="1707" height="920" />
+    <state width="1685" height="345" key="GridCell.Tab.0.bottom/0.0.1536.824/1920.-173.2560.1040/-2560.-367.1707.920@-2560.-367.1707.920" timestamp="1608811089732" />
+    <state width="1515" height="295" key="GridCell.Tab.0.bottom/0.0.1536.824@0.0.1536.824" timestamp="1609712650550" />
+    <state width="1515" height="295" key="GridCell.Tab.0.center" timestamp="1609712650550">
+      <screen x="0" y="0" width="1536" height="824" />
     </state>
-    <state width="1685" height="336" key="GridCell.Tab.1.center/0.0.1536.824/1920.-173.2560.1040/-2560.-367.1707.920@-2560.-367.1707.920" timestamp="1608287811288" />
-    <state width="1515" height="136" key="GridCell.Tab.1.center/0.0.1536.824@0.0.1536.824" timestamp="1608246166000" />
-    <state width="1685" height="336" key="GridCell.Tab.1.left" timestamp="1608287811288">
-      <screen x="-2560" y="-367" width="1707" height="920" />
+    <state width="1685" height="345" key="GridCell.Tab.0.center/0.0.1536.824/1920.-173.2560.1040/-2560.-367.1707.920@-2560.-367.1707.920" timestamp="1608811089732" />
+    <state width="1515" height="295" key="GridCell.Tab.0.center/0.0.1536.824@0.0.1536.824" timestamp="1609712650550" />
+    <state width="1515" height="295" key="GridCell.Tab.0.left" timestamp="1609712650550">
+      <screen x="0" y="0" width="1536" height="824" />
     </state>
-    <state width="1685" height="336" key="GridCell.Tab.1.left/0.0.1536.824/1920.-173.2560.1040/-2560.-367.1707.920@-2560.-367.1707.920" timestamp="1608287811288" />
-    <state width="1515" height="136" key="GridCell.Tab.1.left/0.0.1536.824@0.0.1536.824" timestamp="1608246166000" />
-    <state width="1685" height="336" key="GridCell.Tab.1.right" timestamp="1608287811288">
-      <screen x="-2560" y="-367" width="1707" height="920" />
+    <state width="1685" height="345" key="GridCell.Tab.0.left/0.0.1536.824/1920.-173.2560.1040/-2560.-367.1707.920@-2560.-367.1707.920" timestamp="1608811089732" />
+    <state width="1515" height="295" key="GridCell.Tab.0.left/0.0.1536.824@0.0.1536.824" timestamp="1609712650550" />
+    <state width="1515" height="295" key="GridCell.Tab.0.right" timestamp="1609712650550">
+      <screen x="0" y="0" width="1536" height="824" />
     </state>
-    <state width="1685" height="336" key="GridCell.Tab.1.right/0.0.1536.824/1920.-173.2560.1040/-2560.-367.1707.920@-2560.-367.1707.920" timestamp="1608287811288" />
-    <state width="1515" height="136" key="GridCell.Tab.1.right/0.0.1536.824@0.0.1536.824" timestamp="1608246166000" />
+    <state width="1685" height="345" key="GridCell.Tab.0.right/0.0.1536.824/1920.-173.2560.1040/-2560.-367.1707.920@-2560.-367.1707.920" timestamp="1608811089732" />
+    <state width="1515" height="295" key="GridCell.Tab.0.right/0.0.1536.824@0.0.1536.824" timestamp="1609712650550" />
+    <state width="1515" height="194" key="GridCell.Tab.1.bottom" timestamp="1609712640663">
+      <screen x="0" y="0" width="1536" height="824" />
+    </state>
+    <state width="1685" height="345" key="GridCell.Tab.1.bottom/0.0.1536.824/1920.-173.2560.1040/-2560.-367.1707.920@-2560.-367.1707.920" timestamp="1608811059933" />
+    <state width="1515" height="194" key="GridCell.Tab.1.bottom/0.0.1536.824@0.0.1536.824" timestamp="1609712640663" />
+    <state width="1515" height="194" key="GridCell.Tab.1.center" timestamp="1609712640663">
+      <screen x="0" y="0" width="1536" height="824" />
+    </state>
+    <state width="1685" height="345" key="GridCell.Tab.1.center/0.0.1536.824/1920.-173.2560.1040/-2560.-367.1707.920@-2560.-367.1707.920" timestamp="1608811059933" />
+    <state width="1515" height="194" key="GridCell.Tab.1.center/0.0.1536.824@0.0.1536.824" timestamp="1609712640663" />
+    <state width="1515" height="194" key="GridCell.Tab.1.left" timestamp="1609712640662">
+      <screen x="0" y="0" width="1536" height="824" />
+    </state>
+    <state width="1685" height="345" key="GridCell.Tab.1.left/0.0.1536.824/1920.-173.2560.1040/-2560.-367.1707.920@-2560.-367.1707.920" timestamp="1608811059933" />
+    <state width="1515" height="194" key="GridCell.Tab.1.left/0.0.1536.824@0.0.1536.824" timestamp="1609712640662" />
+    <state width="1515" height="194" key="GridCell.Tab.1.right" timestamp="1609712640663">
+      <screen x="0" y="0" width="1536" height="824" />
+    </state>
+    <state width="1685" height="345" key="GridCell.Tab.1.right/0.0.1536.824/1920.-173.2560.1040/-2560.-367.1707.920@-2560.-367.1707.920" timestamp="1608811059933" />
+    <state width="1515" height="194" key="GridCell.Tab.1.right/0.0.1536.824@0.0.1536.824" timestamp="1609712640663" />
     <state x="-2252" y="-303" key="SettingsEditor" timestamp="1608214549063">
       <screen x="-2560" y="-367" width="1707" height="920" />
     </state>
@@ -301,15 +376,24 @@
       <screen x="0" y="0" width="1536" height="824" />
     </state>
     <state x="93" y="93" width="1350" height="638" key="ShowDiffWithBranchDialog/0.0.1536.824@0.0.1536.824" timestamp="1605185378177" />
-    <state x="361" y="145" key="Vcs.Push.Dialog.v2" timestamp="1605001678581">
-      <screen x="0" y="0" width="1536" height="824" />
+    <state x="-2159" y="-205" key="Vcs.Push.Dialog.v2" timestamp="1608633279389">
+      <screen x="-2560" y="-367" width="1707" height="920" />
     </state>
+    <state x="-2159" y="-205" key="Vcs.Push.Dialog.v2/0.0.1536.824/1920.-173.2560.1040/-2560.-367.1707.920@-2560.-367.1707.920" timestamp="1608633279389" />
     <state x="361" y="145" key="Vcs.Push.Dialog.v2/0.0.1536.824@0.0.1536.824" timestamp="1605001678581" />
-    <state width="775" height="419" key="XDebugger.FullValuePopup" timestamp="1608256545288">
-      <screen x="0" y="0" width="1536" height="824" />
+    <state width="862" height="468" key="XDebugger.FullValuePopup" timestamp="1608747731636">
+      <screen x="-2560" y="-367" width="1707" height="920" />
     </state>
-    <state width="862" height="468" key="XDebugger.FullValuePopup/0.0.1536.824/1920.-173.2560.1040/-2560.-367.1707.920@-2560.-367.1707.920" timestamp="1608053575555" />
-    <state width="775" height="419" key="XDebugger.FullValuePopup/0.0.1536.824@0.0.1536.824" timestamp="1608256545288" />
+    <state width="862" height="468" key="XDebugger.FullValuePopup/0.0.1536.824/1920.-173.2560.1040/-2560.-367.1707.920@-2560.-367.1707.920" timestamp="1608747731636" />
+    <state width="775" height="419" key="XDebugger.FullValuePopup/0.0.1536.824@0.0.1536.824" timestamp="1608337681140" />
+    <state x="-1889" y="7" key="com.intellij.openapi.vcs.update.UpdateOrStatusOptionsDialogupdate-v2" timestamp="1608633226327">
+      <screen x="-2560" y="-367" width="1707" height="920" />
+    </state>
+    <state x="-1889" y="7" key="com.intellij.openapi.vcs.update.UpdateOrStatusOptionsDialogupdate-v2/0.0.1536.824/1920.-173.2560.1040/-2560.-367.1707.920@-2560.-367.1707.920" timestamp="1608633226327" />
+    <state x="-2144" y="-178" key="com.intellij.xdebugger.impl.breakpoints.ui.BreakpointsDialogFactory$2" timestamp="1608551723279">
+      <screen x="-2560" y="-367" width="1707" height="920" />
+    </state>
+    <state x="-2144" y="-178" key="com.intellij.xdebugger.impl.breakpoints.ui.BreakpointsDialogFactory$2/0.0.1536.824/1920.-173.2560.1040/-2560.-367.1707.920@-2560.-367.1707.920" timestamp="1608551723279" />
     <state x="431" y="145" width="672" height="678" key="search.everywhere.popup" timestamp="1607615431138">
       <screen x="0" y="0" width="1536" height="824" />
     </state>
@@ -324,24 +408,84 @@
           <option name="timeStamp" value="111" />
         </line-breakpoint>
         <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
-          <url>file://$PROJECT_DIR$/examples/main.py</url>
-          <line>116</line>
-          <option name="timeStamp" value="170" />
+          <url>file://$PROJECT_DIR$/examples/td3_lstm.py</url>
+          <line>11</line>
+          <option name="timeStamp" value="183" />
         </line-breakpoint>
         <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
-          <url>file://$PROJECT_DIR$/examples/main.py</url>
-          <line>161</line>
-          <option name="timeStamp" value="172" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
-          <url>file://$PROJECT_DIR$/examples/main.py</url>
-          <line>217</line>
-          <option name="timeStamp" value="178" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
-          <url>file://$PROJECT_DIR$/examples/main.py</url>
+          <url>file://$PROJECT_DIR$/examples/td3_lstm.py</url>
           <line>33</line>
-          <option name="timeStamp" value="181" />
+          <option name="timeStamp" value="184" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
+          <url>file://$PROJECT_DIR$/examples/td3_lstm.py</url>
+          <line>180</line>
+          <option name="timeStamp" value="185" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
+          <url>file://$PROJECT_DIR$/examples/td3_lstm.py</url>
+          <line>262</line>
+          <option name="timeStamp" value="188" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
+          <url>file://$PROJECT_DIR$/examples/td3_lstm.py</url>
+          <line>234</line>
+          <option name="timeStamp" value="201" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
+          <url>file://$PROJECT_DIR$/simglucose/patient/t1dpatient.py</url>
+          <line>112</line>
+          <option name="timeStamp" value="204" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
+          <url>file://$PROJECT_DIR$/examples/td3_org.py</url>
+          <line>192</line>
+          <option name="timeStamp" value="222" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
+          <url>file://$PROJECT_DIR$/examples/td3_org.py</url>
+          <line>319</line>
+          <option name="timeStamp" value="223" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
+          <url>file://$PROJECT_DIR$/models/TD3.py</url>
+          <line>189</line>
+          <option name="timeStamp" value="248" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
+          <url>file://$PROJECT_DIR$/simglucose/envs/simglucose_gym_new_env.py</url>
+          <line>161</line>
+          <option name="timeStamp" value="262" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
+          <url>file://$PROJECT_DIR$/examples/ars.py</url>
+          <line>7</line>
+          <option name="timeStamp" value="267" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
+          <url>file://$PROJECT_DIR$/examples/ars.py</url>
+          <line>158</line>
+          <option name="timeStamp" value="269" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
+          <url>file://$PROJECT_DIR$/simglucose/simulation/scenario_gen.py</url>
+          <line>26</line>
+          <option name="timeStamp" value="283" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
+          <url>file://$PROJECT_DIR$/examples/ars.py</url>
+          <line>103</line>
+          <option name="timeStamp" value="288" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
+          <url>file://$PROJECT_DIR$/examples/main.py</url>
+          <line>66</line>
+          <option name="timeStamp" value="300" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
+          <url>file://$PROJECT_DIR$/examples/main.py</url>
+          <line>119</line>
+          <option name="timeStamp" value="306" />
         </line-breakpoint>
       </breakpoints>
     </breakpoint-manager>

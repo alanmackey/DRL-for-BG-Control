@@ -132,9 +132,11 @@ class T1DSimEnv(object):
         self.CHO_hist = []
         self.insulin_hist = []
 
-    def reset(self):
+    def reset(self, sensor_seed_change=True):
         self.patient.reset()
         self.sensor.reset()
+        if sensor_seed_change:
+            self.sensor.seed = self.sensor.seed + 1
         self.pump.reset()
         self.scenario.reset()
         self._reset()

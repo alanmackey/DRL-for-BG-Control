@@ -12,7 +12,7 @@ print(torch.cuda.is_available(), torch.backends.cudnn.enabled)
 '''   Actor model    '''
 class Actor(nn.Module):
     def __init__(
-        self, state_dim, action_dim, hidden_dim, max_action, is_recurrent=True
+        self, state_dim, action_dim, hidden_dim, max_action, is_recurrent=True, init_w=3e-3
     ):
         super(Actor, self).__init__()
         self.recurrent = is_recurrent
@@ -26,6 +26,9 @@ class Actor(nn.Module):
         self.l3 = nn.Linear(hidden_dim, action_dim)
         self.max_action = max_action
 
+        self.l3.weight.data.uniform_(-init_w, init_w)
+        self.l3.bias.data.uniform_(-init_w, init_w)
+
     def forward(self, state, hidden):
         if self.recurrent:
             self.l1.flatten_parameters()
@@ -34,7 +37,7 @@ class Actor(nn.Module):
             a, h = F.relu(self.l1(state)), None
 
         a = F.relu(self.l2(a))
-        a = torch.tanh(self.l3(a))
+        a = torch.sigmoid(self.l3(a))
         return self.max_action * a, h
 
 
@@ -42,10 +45,11 @@ class Actor(nn.Module):
 
 class Critic(nn.Module):
     def __init__(
-        self, state_dim, action_dim, hidden_dim, is_recurrent=True
+        self, state_dim, action_dim, hidden_dim, is_recurrent=True, init_w=3e-3
     ):
         super(Critic, self).__init__()
         self.recurrent = is_recurrent
+
 
         if self.recurrent:
             self.l1 = nn.LSTM(
@@ -65,6 +69,14 @@ class Critic(nn.Module):
         self.l5 = nn.Linear(hidden_dim, hidden_dim)
         self.l6 = nn.Linear(hidden_dim, 1)
 
+        self.l3.weight.data.uniform_(-init_w, init_w)
+        self.l3.bias.data.uniform_(-init_w, init_w)
+
+        self.l6.weight.data.uniform_(-init_w, init_w)
+        self.l6.bias.data.uniform_(-init_w, init_w)
+
+
+
     def forward(self, state, action, hidden1, hidden2):
         sa = torch.cat([state, action], -1)
         if self.recurrent:
@@ -83,6 +95,8 @@ class Critic(nn.Module):
         q2 = self.l6(q2)
 
         return q1, q2
+
+
 
     def Q1(self, state, action, hidden1):
         sa = torch.cat([state, action], -1)
@@ -188,8 +202,10 @@ class TD3(object):
 
         #        critic_loss = F.SmoothL1Loss(current_Q1, target_Q) + \
         # Compute critic loss
-        critic_loss = F.mse_loss(current_Q1, target_Q) + \
-            F.mse_loss(current_Q2, target_Q)
+#        critic_loss = F.mse_loss(current_Q1, target_Q) + \
+#            F.mse_loss(current_Q2, target_Q)
+        critic_loss = F.smooth_l1_loss(current_Q1, target_Q) + \
+            F.smooth_l1_loss(current_Q2, target_Q)
 
 #        nn.SmoothL1Loss
         # Optimize the critic

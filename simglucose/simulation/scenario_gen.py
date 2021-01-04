@@ -12,7 +12,7 @@ class RandomScenario(Scenario):
         Scenario.__init__(self, start_time=start_time)
         self.seed = seed
 
-    def get_action(self, t):
+    def get_action(self, t, surpress_meals=True):
         # t must be datetime.datetime object
         delta_t = t - datetime.combine(t.date(), datetime.min.time())
         t_sec = delta_t.total_seconds()
@@ -23,7 +23,7 @@ class RandomScenario(Scenario):
 
         t_min = np.floor(t_sec / 60.0)
 
-        if t_min in self.scenario['meal']['time']:
+        if (not surpress_meals) and (t_min in self.scenario['meal']['time']):
             logger.info('Time for meal!')
             idx = self.scenario['meal']['time'].index(t_min)
             return Action(meal=self.scenario['meal']['amount'][idx])

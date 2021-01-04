@@ -15,6 +15,7 @@ from gym.utils import seeding
 from datetime import datetime
 from simglucose.analysis import reward_functions
 from simglucose.analysis.risk import magni_risk_index
+import random
 
 PATIENT_PARA_FILE = pkg_resources.resource_filename(
     'simglucose', 'params/vpatient_params.csv')
@@ -36,13 +37,14 @@ class T1DSimEnv(gym.Env):
             reward_fun = reward_functions.magni_reward
         seeds = self._seed()
         self.env = None
-        nbr_hours = 4
-        self.termination_penalty = 2e4
+        nbr_hours = 1
+        self.termination_penalty = 1e4
+#        self.state_hist = int(1)
         self.state_hist = int((nbr_hours * 60) / 3)
         # have to hard code the patient_name, gym has some interesting
         # error when choosing the patient
         if patient_name is None:
-            patient_name = 'adolescent#001'
+            patient_name = 'child#001'
         self.patient_name = patient_name
         patient = T1DPatient.withName(patient_name)
         sensor = CGMSensor.withName('Dexcom', seed=seeds[1])
@@ -66,8 +68,8 @@ class T1DSimEnv(gym.Env):
         # 288 samples per day, bolus insulin should be 75% of insulin dose
         # split over 4 meals with 5 minute sampling rate, max unscaled value is 1+action_bias
         # https://care.diabetesjournals.org/content/34/5/1089
-        action = (action + action_bias) * ((self.ideal_basal * basal_scaling)/(1+action_bias))
-        act = Action(basal=action, bolus=0)
+#        action = (action + action_bias) * ((self.ideal_basal * basal_scaling)/(1+action_bias))
+        act = Action(basal=0, bolus=action)
         if self.reward_fun is None:
             _, reward, _, info =  self.env.step(act)
         else:
@@ -79,11 +81,11 @@ class T1DSimEnv(gym.Env):
         return state, reward, done, info
 
     def is_done(self):
-        return self.env.BG_hist[-1] < 40 or self.env.BG_hist[-1] > 190
+        return self.env.BG_hist[-1] < 40 or self.env.BG_hist[-1] > 400
 
     def reset(self):
         obs, _, _, _ = self.env.reset()
-        self._hist_init()
+#        self._hist_init()
         return self.get_state()
 
     def _seed(self, seed=None):
@@ -99,14 +101,22 @@ class T1DSimEnv(gym.Env):
         self.env.render(close=close)
 
     def get_state(self):
-        bg = self.env.CGM_hist[-self.state_hist:]
+        bg = self.env.BG_hist[-self.state_hist:]
+        bg = np.rint(bg)
         insulin = self.env.insulin_hist[-self.state_hist:]
+        cho = self.env.CHO_hist[-self.state_hist:]
         if len(bg) < self.state_hist:
             bg = np.concatenate((np.full(self.state_hist - len(bg), -1), bg))
         if len(insulin) < self.state_hist:
-            insulin = np.concatenate((np.full(self.state_hist - len(insulin), -1), insulin))
+            insulin = np.concatenate((np.full(self.state_hist - len(insulin), 0), insulin))
+        if len(cho) < self.state_hist:
+            cho = np.concatenate((np.full(self.state_hist - len(cho), 0), cho))
+
         return_arr = [bg, insulin]
         return np.stack(return_arr).flatten()
+#        return_arr = np.array([bg])
+#        return_arr = np.interp(return_arr, (return_arr.min(), return_arr.max()), (0, +1))
+#        return np.stack(return_arr).flatten()
 
     def set_history_values(self, patient_name):
         self.patient_name = patient_name
@@ -124,27 +134,43 @@ class T1DSimEnv(gym.Env):
         self.env_init_dict['magni_risk_hist'] = []
         for bg in self.env_init_dict['bg_hist']:
             self.env_init_dict['magni_risk_hist'].append(magni_risk_index([bg]))
-        self._hist_init()
+#        self._hist_init()
 
     def _hist_init(self):
         self.rolling = []
         env_init_dict = copy.deepcopy(self.env_init_dict)
+        start_idx = random.randint(0,50)
         self.env.patient._state = env_init_dict['state']
         self.env.patient._t = env_init_dict['time']
-        self.env.time_hist = env_init_dict['time_hist']
-        self.env.BG_hist = env_init_dict['bg_hist']
-        self.env.CGM_hist = env_init_dict['cgm_hist']
-        self.env.risk_hist = env_init_dict['risk_hist']
-        self.env.LBGI_hist = env_init_dict['lbgi_hist']
-        self.env.HBGI_hist = env_init_dict['hbgi_hist']
-        self.env.CHO_hist = env_init_dict['cho_hist']
-        self.env.insulin_hist = env_init_dict['insulin_hist']
-        self.env.magni_risk_hist = env_init_dict['magni_risk_hist']
+        if self.start_date is not None:
+            # need to reset date in start time
+            orig_start_time = env_init_dict['time_hist'][0]
+            new_start_time = datetime(year=self.start_date.year, month=self.start_date.month,
+                                      day=self.start_date.day)
+            new_time_hist = ((np.array(env_init_dict['time_hist']) - orig_start_time) + new_start_time).tolist()
+            self.env.time_hist = new_time_hist
+        else:
+            self.env.time_hist = env_init_dict['time_hist']
+        self.env.time_hist = env_init_dict['time_hist'][start_idx:start_idx+200]
+        self.env.BG_hist = env_init_dict['bg_hist'][start_idx:start_idx+200]
+        self.env.CGM_hist = env_init_dict['cgm_hist'][start_idx:start_idx+200]
+        self.env.risk_hist = env_init_dict['risk_hist'][start_idx:start_idx+200]
+        self.env.LBGI_hist = env_init_dict['lbgi_hist'][start_idx:start_idx+200]
+        self.env.HBGI_hist = env_init_dict['hbgi_hist'][start_idx:start_idx+200]
+        self.env.CHO_hist = env_init_dict['cho_hist'][start_idx:start_idx+200]
+        self.env.insulin_hist = env_init_dict['insulin_hist'][start_idx:start_idx+200]
+        self.env.magni_risk_hist = env_init_dict['magni_risk_hist'][start_idx:start_idx+200]
+        self.env.time = self.env.time_hist[-1]
+
+    def increment_seed(self, incr=1):
+        self.seeds['numpy'] += incr
+        self.seeds['scenario'] += incr
+        self.seeds['sensor'] += incr
 
     @property
     def action_space(self):
 #        ub = self.env.pump._params['max_basal']
-        return spaces.Box(low=0, high=1.0
+        return spaces.Box(low=0, high=.4
                           , shape=(1,))
 
 #    @property
